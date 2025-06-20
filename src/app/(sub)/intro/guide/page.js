@@ -3,13 +3,15 @@ import Link from 'next/link';
 // import "../../css/Guide.css";
 import "./Guide.Content.css";
 import TableScroll from "../../../../components/Common/TableScroll";
+import TitlePage from "../../../../components/TitlePage/TitlePage";
+import menuData from "../../../../components/Header/MenuData";
 
 const Guide = () => {
 
     return (
         <>
             {/* <Header /> */}
-
+            <TitlePage menuData={menuData} />
             <div className="sub-content">
                 <div className="content-box">
                     <div className="con-box">

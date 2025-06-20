@@ -3,6 +3,8 @@
 // import Footer from "../../../components/Footer/Footer";
 
 import Image from 'next/image';
+import TitlePage from "../../../../components/TitlePage/TitlePage";
+import menuData from "../../../../components/Header/MenuData";
 
 // import "../../css/Guide.css";
 import "./Greeting.css";
@@ -12,7 +14,7 @@ const Greeting = () => {
     return (
         <>
             {/* <Header /> */}
-
+            <TitlePage menuData={menuData} />
             <div className="sub-content">
                 <div className="content-box">
                     <div className="con-box no-pd">

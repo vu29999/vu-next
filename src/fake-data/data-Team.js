@@ -1,4 +1,5 @@
-import img1 from '../images/main/thumb-sns-01.jpg';
+
+import img1 from '../../public/images/main/thumb-sns-01.jpg';
 
 const dataTeam = [
     {

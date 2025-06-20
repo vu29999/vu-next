@@ -18,11 +18,11 @@ const menuData = [
             },
             {
                 title: "탭",
-                path: "/intro/tabmn01",
+                path: "/intro/tab-mn01",
                 subSub: [
-                    { title: "tab-mn01", path: "/intro/tabmn01" },
-                    { title: "tab-mn02", path: "/intro/tabmn02" },
-                    { title: "tab-mn03", path: "/intro/tabmn03" }
+                    { title: "tab-mn01", path: "/intro/tab-mn01" },
+                    { title: "tab-mn02", path: "/intro/tab-mn02" },
+                    { title: "tab-mn03", path: "/intro/tab-mn03" }
                 ]
             }
         ]
@@ -47,11 +47,11 @@ const menuData = [
     },
     {
         title: "team",
-        path: "/team/team",
+        path: "/team/team01",
         sub: [
             {
                 title: "team 01",
-                path: "/team/team",
+                path: "/team/team01",
                 // subSub: [
                 //     { title: "team sub-sub 01", path: "/team/sub01/01" }
                 // ]
@@ -65,15 +65,15 @@ const menuData = [
     },
     {
         title: "MenuStyle",
-        path: "/header01",
+        path: "/header-style/header01",
         sub: [
             {
                 title: "MenuStyle 01",
-                path: "/header01",
+                path: "/header-style/header01",
             },
             {
                 title: "MenuStyle 02",
-                path: "/header02",
+                path: "/header-style/header02",
                 subSub: []
             }
         ]
