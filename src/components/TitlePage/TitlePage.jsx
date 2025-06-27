@@ -10,7 +10,6 @@ const TitlePage = ({ menuData }) => {
     let menu2 = null;
     let menu3 = null;
 
-    // Duyệt menu cấp 1
     menuData.forEach(item => {
         if (
             path === item.path ||
@@ -25,8 +24,6 @@ const TitlePage = ({ menuData }) => {
         ) {
             menu1 = item;
 
-
-            // Duyệt menu cấp 2
             if (item.sub) {
                 item.sub.forEach(sub => {
                     if (
@@ -36,7 +33,6 @@ const TitlePage = ({ menuData }) => {
                     ) {
                         menu2 = sub;
 
-                        // Duyệt menu cấp 3
                         if (sub.subSub) {
                             const subSubMatch = sub.subSub.find(subsub =>
                                 path === subsub.path || path.startsWith(subsub.path + "/")

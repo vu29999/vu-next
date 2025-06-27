@@ -4,19 +4,36 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from 'next/image';
-import "../headerStyle.css";
-import menuData from "../../../../components/Header/MenuData";
-import MenuMobileStyle from "../MenuMobileStyle";
+import "./HeaderStyle.css";
+import menuData from "../Header/MenuData";
+import MenuMobileStyle from "./MenuMobileStyle";
+import PopSiteMap from '../Header/popSiteMap';
 
-const MenuStyle02 = () => {
-    const [hoverIndex, setHoverIndex] = useState(null);
+const MenuStyle01 = () => {
     const pathname = usePathname();
+    const [hoverIndex, setHoverIndex] = useState(null);
+    const bgRef = useRef(null);
+    const subBoxRefs = useRef([]);
     const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+    const getMaxSubBoxHeight = () => {
+        return subBoxRefs.current.reduce((max, el) => {
+            return el ? Math.max(max, el.offsetHeight) : max;
+        }, 0);
+    };
+
+    useEffect(() => {
+        if (hoverIndex !== null && bgRef.current) {
+            bgRef.current.style.height = `${getMaxSubBoxHeight()}px`;
+        } else if (bgRef.current) {
+            bgRef.current.style.height = `0px`;
+        }
+    }, [hoverIndex]);
 
     return (
         <header>
             <div
-                className={`header-wrap02 header-wrap03 ${hoverIndex !== null ? "on" : ""}`}
+                className={`header-wrap02 ${hoverIndex !== null ? "on" : ""}`}
                 onMouseLeave={() => setHoverIndex(null)}
             >
                 <div className="top-header-wrap02">
@@ -66,10 +83,12 @@ const MenuStyle02 = () => {
                                                 className={(hoverIndex === index || isMenuActive) ? "on-menu" : ""}
                                                 onMouseEnter={() => setHoverIndex(index)}
                                             >
-                                                <Link href={menuItem.path} title={menuItem.title}>{menuItem.title}</Link>
-
+                                                <Link href={menuItem.path}>{menuItem.title}</Link>
                                                 {hoverIndex === index && (
-                                                    <div className="sub-mn-box">
+                                                    <div
+                                                        className="sub-mn-box"
+                                                        ref={el => subBoxRefs.current[index] = el}
+                                                    >
                                                         {Array.isArray(menuItem.sub) && (
                                                             <ul className="depth_02">
                                                                 {menuItem.sub.map((sub, subIndex) => {
@@ -77,13 +96,12 @@ const MenuStyle02 = () => {
                                                                         pathname === sub.path ||
                                                                         pathname.startsWith(sub.path + "/") ||
                                                                         sub.subSub?.some(subsub =>
-                                                                            pathname === subsub.path ||
-                                                                            pathname.startsWith(subsub.path + "/")
+                                                                            pathname.startsWith(subsub.path)
                                                                         );
 
                                                                     return (
                                                                         <li key={subIndex} className={isSubActive ? "active" : ""}>
-                                                                            <Link href={sub.path} title={sub.title}>{sub.title}</Link>
+                                                                            <Link href={sub.path}>{sub.title}</Link>
 
                                                                             {Array.isArray(sub.subSub) && sub.subSub.length > 0 && (
                                                                                 <ul className="depth_03">
@@ -91,7 +109,7 @@ const MenuStyle02 = () => {
                                                                                         const isSubSubActive = pathname === item.path;
                                                                                         return (
                                                                                             <li key={idx} className={isSubSubActive ? "active" : ""}>
-                                                                                                <Link href={item.path} title={item.title}>{item.title}</Link>
+                                                                                                <Link href={item.path}>{item.title}</Link>
                                                                                             </li>
                                                                                         );
                                                                                     })}
@@ -109,21 +127,19 @@ const MenuStyle02 = () => {
                                     })}
                                 </ul>
                             </div>
+                            <PopSiteMap menuData={menuData} />
                             <MenuMobileStyle
                                 menuData={menuData}
                                 isOpen={isMobileOpen}
                                 setIsOpen={setIsMobileOpen}
                             />
+                            <div className="gnb-bg-menu" ref={bgRef}></div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div className="wrap-test">
-                test
             </div>
         </header>
     );
 };
 
-export default MenuStyle02;
+export default MenuStyle01;

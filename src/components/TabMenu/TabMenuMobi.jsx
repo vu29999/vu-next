@@ -1,17 +1,20 @@
+"use client";
+
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import classNames from "classnames";
 import "./TabMenu.css"
 
 const TabMenuMobi = ({ menuData }) => {
-    const location = useLocation();
+    const path = usePathname();
 
     const currentSub = menuData.flatMap(menu => menu.sub || [])
         .find(sub =>
-            location.pathname === sub.path ||
-            location.pathname.startsWith(sub.path + "/") ||
+            path === sub.path ||
+            path.startsWith(sub.path + "/") ||
             (sub.subSub && sub.subSub.some(subsub =>
-                location.pathname === subsub.path || location.pathname.startsWith(subsub.path + "/")
+                path === subsub.path || path.startsWith(subsub.path + "/")
             ))
         );
 
@@ -27,7 +30,7 @@ const TabMenuMobi = ({ menuData }) => {
                     onClick={() => setIsOpen(prev => !prev)}
                 >
                     {
-                        subSubMenus.find(item => location.pathname === item.path)?.title
+                        subSubMenus.find(item => path === item.path)?.title
                         || "선택하세요"
                     }
                 </button>
@@ -36,9 +39,9 @@ const TabMenuMobi = ({ menuData }) => {
                         {subSubMenus.map((menu, index) => (
                             <li key={index}>
                                 <Link
-                                    to={menu.path}
+                                    href={menu.path}
                                     onClick={() => setIsOpen(false)}
-                                    className={classNames({ active: location.pathname === menu.path })}
+                                    className={classNames({ active: path === menu.path })}
                                 >
                                     {menu.title}
                                 </Link>

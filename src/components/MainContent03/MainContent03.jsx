@@ -44,13 +44,13 @@ const MainContent03 = () => {
                                 </div>
                             </div>
                             <Swiper
-                                modules={[Navigation, Pagination, Scrollbar]}  // Sử dụng các module Navigation và Pagination
-                                loop={false}  // Tự động quay lại slide đầu tiên khi đến cuối
-                                spaceBetween={40}  // Khoảng cách giữa các slide
-                                slidesPerView={3.6}  // Số lượng slide hiển thị cùng lúc
-                                speed={800}  // Thời gian chuyển slide (miliseconds)
-                                navigation={false}  // Bật tính năng Navigation (next/prev)
-                                pagination={false}  // Bật Pagination (chấm điều hướng)
+                                modules={[Navigation, Pagination, Scrollbar]}
+                                loop={false}
+                                spaceBetween={40}
+                                slidesPerView={3.6}
+                                speed={800}
+                                navigation={false}
+                                pagination={false}
                                 autoplay={{
                                     delay: 2500,
                                     disableOnInteraction: false,
@@ -88,7 +88,7 @@ const MainContent03 = () => {
                                     },
                                 }}
                             >
-                                {/* Các slide */}
+
                                 {dataMainSocial.map(item => (
                                     <SwiperSlide key={item.id}>
                                         <div className="sns-slider">

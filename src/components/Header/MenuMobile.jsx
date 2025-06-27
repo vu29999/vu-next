@@ -80,7 +80,7 @@ const MenuMobile = ({ menuData }) => {
                         />
                     </button>
 
-                    {/* Menu cấp 1 */}
+                    {/* Menu 1 */}
                     <ul className="dep1">
                         {menuData.map((menuItem, index) => {
                             const hasSub = Array.isArray(menuItem.sub) && menuItem.sub.length > 0;
@@ -111,7 +111,6 @@ const MenuMobile = ({ menuData }) => {
                                         </Link>
                                     )}
 
-                                    {/* ✅ Luôn render dep2 */}
                                     <ul className={`dep2 ${openMobileIndex === index ? "open" : ""}`}>
                                         {menuItem.sub?.map((subItem, subIndex) => {
                                             const isSubActive =

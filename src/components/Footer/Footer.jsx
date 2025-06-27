@@ -8,12 +8,10 @@ const Footer = () => {
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef(null);
 
-    // Xử lý toggle dropdown
     const handleToggle = () => {
         setIsOpen(!isOpen);
     };
 
-    // Xử lý khi click ra ngoài để đóng dropdown
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {

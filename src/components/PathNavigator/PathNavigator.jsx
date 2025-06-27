@@ -6,7 +6,6 @@ import { useState, useEffect, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
 import "./PathNavigator.css";
 
-// Tìm menu cấp 1 theo path hiện tại
 const findCurrentMenu = (menuData, path) => {
     return menuData.find(menu =>
         path === menu.path ||
@@ -19,7 +18,6 @@ const findCurrentMenu = (menuData, path) => {
     );
 };
 
-// Tìm menu cấp 2 theo path hiện tại
 const findCurrentSub = (menu, path) => {
     return menu?.sub?.find(sub =>
         path === sub.path ||
@@ -71,7 +69,7 @@ const PathNavigator = ({ menuData }) => {
 
                     <div className="path-depth-wrap">
                         <ul>
-                            {/* Menu cấp 1 */}
+                            {/* Menu 01 */}
                             <li ref={menu1Ref} className={activeMenu1 ? "active" : ""}>
                                 <button
                                     className={`path-selected ${activeMenu1 ? "active" : ""}`}
@@ -102,7 +100,7 @@ const PathNavigator = ({ menuData }) => {
                                 </CSSTransition>
                             </li>
 
-                            {/* Menu cấp 2 */}
+                            {/* Menu 02 */}
                             {currentMenu?.sub && (
                                 <li ref={menu2Ref} className={activeMenu2 ? "active" : ""}>
                                     <button

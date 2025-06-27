@@ -9,16 +9,15 @@ const QuickLink = () => {
     const quickBoxRef = useRef(null);
 
     useEffect(() => {
-        // Tương đương với $(document).ready()
+
         setTimeout(() => {
             document.documentElement.classList.remove('no-js');
         }, 10);
 
         if (window.App?.TableScroll?.init) {
-            window.App.TableScroll.init(); // Nếu App.TableScroll.init tồn tại thì gọi
+            window.App.TableScroll.init();
         }
 
-        // Logic quickBox scroll
         const $sideBar = quickBoxRef.current;
         if (!$sideBar) return;
 

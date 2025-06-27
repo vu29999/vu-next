@@ -1,4 +1,5 @@
 import TabMenu from "../../../../components/TabMenu/TabMenu";
+import TabMenuMobi from "../../../../components/TabMenu/TabMenuMobi";
 import TitlePage from "../../../../components/TitlePage/TitlePage";
 import menuData from "../../../../components/Header/MenuData";
 
@@ -10,7 +11,7 @@ const TabMn03 = () => {
             <div className="tab-wrap">
                 <div className="tab-box">
                     <TabMenu menuData={menuData} />
-                    {/* <TabMenuMobi menuData={menuData} /> */}
+                    <TabMenuMobi menuData={menuData} />
                 </div>
             </div>
             <TitlePage menuData={menuData} />

@@ -7,7 +7,6 @@ const PopSiteMap = ({ menuData }) => {
 
     return (
         <div className="sitemap-wrap">
-            {/* Nút mở */}
             <a className="popup-btn" href="#!" onClick={(e) => {
                 e.preventDefault();
                 setIsOpen(!isOpen);
@@ -60,7 +59,6 @@ const PopSiteMap = ({ menuData }) => {
                     </div>
                 </div>
 
-                {/* Nút đóng */}
                 <div className="popup-gnb-wrap-close">
                     <div className="popup-gnb-box">
                         <a className="popup-close" href="#!" onClick={(e) => {

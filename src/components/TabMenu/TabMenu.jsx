@@ -9,7 +9,6 @@ import "./TabMenu.css"
 const TabMenu = ({ menuData }) => {
     const path = usePathname();
 
-    // Tìm menu cấp 2 hiện tại dựa trên path
     const currentSub = menuData.flatMap(menu => menu.sub || [])
         .find(sub =>
             path === sub.path ||

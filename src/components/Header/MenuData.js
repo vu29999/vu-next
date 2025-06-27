@@ -29,11 +29,11 @@ const menuData = [
     },
     {
         title: "about",
-        path: "/about/about",
+        path: "/about/about01",
         sub: [
             {
                 title: "about sub 01",
-                path: "/about/about",
+                path: "/about/about01",
                 subSub: [
                     { title: "about sub-sub 01", path: "/about/sub01/01" }
                 ]
