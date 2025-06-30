@@ -49,7 +49,7 @@ const Header = () => {
                     <div className="top-header-box">
                         <ul className="top-util-box">
                             <li><Link href="/" title="home">Home</Link></li>
-                            <li><Link href="/Login" title="로그인">로그인</Link></li>
+                            <li><Link href="/login" title="로그인">로그인</Link></li>
                         </ul>
                     </div>
                 </div>
