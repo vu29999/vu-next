@@ -6,7 +6,7 @@ import '@react-pdf-viewer/default-layout/lib/styles/index.css';
 
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 
-const PDFViewer02 = ({ fileUrl }: { fileUrl: string }) => {
+const PDFViewer02 = ({ fileUrl }) => {
     const defaultLayoutPluginInstance = defaultLayoutPlugin();
 
     return (

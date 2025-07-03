@@ -1,0 +1,3 @@
+/* .plu-wrap .rpv-core__minimal-button{display: none;} */
+.plu-wrap .rpv-toolbar__right > div:first-child {display: none;}
+.plu-wrap .rpv-core__menu > div:first-child {display: none;}

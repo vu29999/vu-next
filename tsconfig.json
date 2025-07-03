@@ -28,7 +28,10 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/components/PDFViewer/PDFViewer.jsx",
+    "src/components/PDFViewer/PDFViewer02.jsx",
+    "src/components/Header/Header.tsx"
   ],
   "exclude": [
     "node_modules"

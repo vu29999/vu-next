@@ -4,6 +4,8 @@ import MainContent02 from '../../components/MainContent02/MainContent02';
 import MainContent03 from '../../components/MainContent03/MainContent03';
 import QuickLink from '../../components/QuickLink/QuickLink';
 
+
+
 export default function Home() {
   return (
     <>

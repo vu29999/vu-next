@@ -1,43 +1,72 @@
 'use client';
+
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import MenuMobile from './MenuMobile';
-import PopSiteMap from './popSiteMap';
+import { usePathname } from 'next/navigation';
+import dynamic from 'next/dynamic';
 
 import './Header.css';
-
 import menuData from './MenuData';
 
+const MenuMobile = dynamic(() => import('./MenuMobile'), { ssr: false });
+const PopSiteMap = dynamic(() => import('./popSiteMap'), { ssr: false });
+
 const Header = () => {
+    const pathname = usePathname();
     const [hoverIndex, setHoverIndex] = useState(null);
+    const [isMobileOpen, setIsMobileOpen] = useState(false);
+
     const bgRef = useRef(null);
     const subBoxRefs = useRef([]);
-    const pathname = usePathname();
-    const [isMobileOpen, setIsMobileOpen] = useState(false);
 
     const getMaxSubBoxHeight = () => {
         return subBoxRefs.current.reduce((max, el) => {
-            if (el) {
-                return Math.max(max, el.offsetHeight);
-            }
+            if (el) return Math.max(max, el.offsetHeight);
             return max;
         }, 0);
     };
 
     useEffect(() => {
-        if (hoverIndex !== null) {
-            const maxHeight = getMaxSubBoxHeight();
-            if (bgRef.current) {
-                bgRef.current.style.height = `${maxHeight}px`;
-            }
-        } else {
-            if (bgRef.current) {
-                bgRef.current.style.height = `0px`;
-            }
+        if (hoverIndex !== null && bgRef.current) {
+            bgRef.current.style.height = `${getMaxSubBoxHeight()}px`;
+        } else if (bgRef.current) {
+            bgRef.current.style.height = '0px';
         }
     }, [hoverIndex]);
+
+    const isActive = (item) => {
+        if (!item.path) return false;
+        if (pathname === item.path || pathname.startsWith(item.path + '/')) return true;
+        if (Array.isArray(item.sub)) {
+            return item.sub.some(sub => isActive(sub));
+        }
+        if (Array.isArray(item.subSub)) {
+            return item.subSub.some(sub => isActive(sub));
+        }
+        return false;
+    };
+
+    const renderSubSubMenu = (subSubList) => (
+        <ul className="depth_03">
+            {subSubList.map((item, idx) => (
+                <li key={idx} className={isActive(item) ? 'active' : ''}>
+                    <Link href={item.path}>{item.title}</Link>
+                </li>
+            ))}
+        </ul>
+    );
+
+    const renderSubMenu = (subList, parentIndex) => (
+        <ul className="depth_02">
+            {subList.map((sub, subIdx) => (
+                <li key={subIdx} className={isActive(sub) ? 'active' : ''}>
+                    <Link href={sub.path}>{sub.title}</Link>
+                    {Array.isArray(sub.subSub) && sub.subSub.length > 0 && renderSubSubMenu(sub.subSub)}
+                </li>
+            ))}
+        </ul>
+    );
 
     return (
         <header>
@@ -48,8 +77,8 @@ const Header = () => {
                 <div className="top-header-wrap">
                     <div className="top-header-box">
                         <ul className="top-util-box">
-                            <li><Link href="/" title="home">Home</Link></li>
-                            <li><Link href="/login" title="로그인">로그인</Link></li>
+                            <li><Link href="/">Home</Link></li>
+                            <li><Link href="/login">로그인</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -65,6 +94,7 @@ const Header = () => {
                                         className="logo-w"
                                         width={140}
                                         height={40}
+                                        priority
                                     />
                                     <Image
                                         src="/images/common/logo-b.png"
@@ -72,70 +102,30 @@ const Header = () => {
                                         className="logo-b"
                                         width={140}
                                         height={40}
+                                        priority
                                     />
                                 </Link>
                             </h1>
 
                             <div className="gnb">
                                 <ul className="depth_01">
-                                    {menuData.map((menuItem, index) => {
-                                        const isMenuActive =
-                                            pathname.startsWith(menuItem.path) ||
-                                            (menuItem.sub && menuItem.sub.some(sub =>
-                                                pathname.startsWith(sub.path) ||
-                                                (sub.subSub && sub.subSub.some(subsub =>
-                                                    pathname.startsWith(subsub.path)
-                                                ))
-                                            ));
+                                    {menuData.map((menuItem, index) => (
+                                        <li
+                                            key={index}
+                                            className={(hoverIndex === index || isActive(menuItem)) ? 'on-menu' : ''}
+                                            onMouseEnter={() => setHoverIndex(index)}
+                                        >
+                                            <Link href={menuItem.path}>{menuItem.title}</Link>
 
-                                        return (
-                                            <li
-                                                key={index}
-                                                className={(hoverIndex === index || isMenuActive) ? 'on-menu' : ''}
-                                                onMouseEnter={() => setHoverIndex(index)}
+                                            <div
+                                                className="sub-mn-box"
+                                                ref={(el) => (subBoxRefs.current[index] = el)}
                                             >
-                                                <Link href={menuItem.path} title={menuItem.title}>{menuItem.title}</Link>
-
-                                                <div
-                                                    className="sub-mn-box"
-                                                    ref={(el) => (subBoxRefs.current[index] = el)}
-                                                >
-                                                    {Array.isArray(menuItem.sub) && (
-                                                        <ul className="depth_02">
-                                                            {menuItem.sub.map((sub, subIndex) => {
-                                                                const isSubActive =
-                                                                    pathname === sub.path ||
-                                                                    pathname.startsWith(sub.path + '/') ||
-                                                                    (sub.subSub && sub.subSub.some(subsub =>
-                                                                        pathname === subsub.path ||
-                                                                        pathname.startsWith(subsub.path + '/')
-                                                                    ));
-
-                                                                return (
-                                                                    <li key={subIndex} className={isSubActive ? 'active' : ''}>
-                                                                        <Link href={sub.path} title={sub.title}>{sub.title}</Link>
-
-                                                                        {Array.isArray(sub.subSub) && sub.subSub.length > 0 && (
-                                                                            <ul className="depth_03">
-                                                                                {sub.subSub.map((item, idx) => {
-                                                                                    const isSubSubActive = pathname === item.path;
-                                                                                    return (
-                                                                                        <li key={idx} className={isSubSubActive ? 'active' : ''}>
-                                                                                            <Link href={item.path} title={item.title}>{item.title}</Link>
-                                                                                        </li>
-                                                                                    );
-                                                                                })}
-                                                                            </ul>
-                                                                        )}
-                                                                    </li>
-                                                                );
-                                                            })}
-                                                        </ul>
-                                                    )}
-                                                </div>
-                                            </li>
-                                        );
-                                    })}
+                                                {Array.isArray(menuItem.sub) &&
+                                                    renderSubMenu(menuItem.sub, index)}
+                                            </div>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
 
@@ -145,7 +135,6 @@ const Header = () => {
                                 isOpen={isMobileOpen}
                                 setIsOpen={setIsMobileOpen}
                             />
-
                             <div className="gnb-bg-menu" ref={bgRef}></div>
                         </div>
                     </div>

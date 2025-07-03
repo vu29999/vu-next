@@ -13,7 +13,7 @@ const About02 = () => {
             <div className="sub-content">
                 <div className="content-box">
                     <div className="con-box no-pd">
-                        <h4 className="h4-tit01">About 01</h4>
+                        <h4 className="h4-tit01">About 02</h4>
                         <PDFViewer02 fileUrl="/pdfs/test02.pdf" />
                     </div>
                 </div>
